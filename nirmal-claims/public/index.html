@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nirmal Claims</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2322d3ee'/%3E%3Cpath d='M18 46V18l28 28V18' stroke='%23070b18' stroke-width='7' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<div class="app">
+                    <section id="loginScreen" class="login-screen" aria-labelledby="loginTitle">
+
+        <div class="login-art" aria-hidden="true"><div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div><div class="art-glow"></div><div class="shield-art"><svg viewBox="0 0 160 180"><path d="M80 8 140 30v48c0 42-24 72-60 94C44 150 20 120 20 78V30L80 8Z" fill="url(#shieldFill)" stroke="rgba(255,255,255,.7)" stroke-width="2"/><path d="M52 87 70 105 109 65" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="shieldFill" x1="20" y1="8" x2="140" y2="172"><stop stop-color="#29d7e3"/><stop offset="1" stop-color="#6674ff"/></linearGradient></defs></svg></div><div class="art-caption"><span class="live-dot"></span> Secure claims workspace <span class="art-caption-sub">A clearer path from claim to resolution.</span></div><div class="art-stat"><span>●</span><b>Trusted protection</b><small>Built for the moments that matter</small></div></div>
+        <div class="login-panel"><div class="login-brand"><div class="login-logo">N</div><div><b>Nirmal Claims</b><small>Warranty claims control room</small></div><span class="secure-pill">◈ Secure access</span></div><div class="login-content"><span class="eyebrow">WELCOME BACK</span><h1 id="loginTitle">Good to see you.</h1><p class="login-lede">Sign in to continue to your claims workspace.</p><form id="loginForm" novalidate><label class="field-label" for="loginEmail">Work email</label><div class="login-input-wrap"><span class="input-icon">✉</span><input id="loginEmail" type="email" autocomplete="username" placeholder="you@company.com" required aria-describedby="emailHint"></div><small id="emailHint" class="field-hint">Use your company email address.</small><label class="field-label password-label" for="loginPassword">Password <a href="#" id="forgotPassword">Forgot password?</a></label><div class="login-input-wrap"><span class="input-icon">⌑</span><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Enter your password" required minlength="4"><button class="password-toggle" type="button" id="togglePassword" aria-label="Show password">Show</button></div><div class="login-options"><label class="remember-option"><input type="checkbox" id="rememberMe"><span>Remember me</span></label><span class="session-note">Private, encrypted session</span></div><button class="login-submit" type="submit"><span>Sign in</span><span aria-hidden="true">→</span></button><div id="loginMessage" class="login-message" role="status" aria-live="polite"></div></form><div class="login-divider"><span>DEMO ACCESS</span></div><button id="demoAccess" class="demo-access" type="button"><span class="demo-avatar">AR</span><span><b>Continue as Anita Rao</b><small>Warranty executive · demo workspace</small></span><span class="demo-arrow">↗</span></button><p class="login-footnote">This prototype uses demo access. No password is sent or verified.</p></div><footer class="login-footer"><span>© 2026 Nirmal Claims</span><a href="#" id="helpLink">Need help?</a></footer></div>
+      </section>
+<header class="top glass">
+    <div class="brand">
+      <div class="logo"><svg viewBox="0 0 64 64" width="26" height="26"><path d="M18 46V18l28 28V18" stroke="currentColor" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div><h1>Nirmal Claims</h1><p>Warranty claims control room</p></div>
+    </div>
+    <div class="thr">
+      <label for="thr">Fast-lane threshold <b id="thrVal">0.85</b></label>
+      <input type="range" id="thr" min="0.70" max="0.95" step="0.05" value="0.85" aria-label="Fast-lane AI confidence threshold">
+      <div class="ticks"><span>0.70</span><span>0.95</span></div>
+    </div>
+    <div class="actions">
+      <label class="who"><span>Signed in as</span><select id="userSel" aria-label="Signed in as"></select></label>
+      <button class="btn primary" id="btnNew">+ New claim</button>
+      <a class="btn" id="btnCsv" href="/api/audit.csv" download>Export audit CSV</a>
+      <button class="btn danger" id="btnReset">Reset demo</button>
+    </div>
+  </header>
+
+  <section id="tiles" class="tiles" aria-label="Key numbers"></section>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" data-tab="work" class="on">Workbench</button>
+    <button role="tab" data-tab="dash">Dashboard</button>
+    <button role="tab" data-tab="audit">Audit log <span id="auditCount" class="pill">0</span></button>
+    <span class="live" id="live" title="Live connection to the server"><i></i><em>connecting</em></span>
+  </nav>
+
+  <main>
+    <section id="view-work" class="layout">
+      <aside id="queues" class="glass queues" aria-label="Queues"></aside>
+      <section class="glass list">
+        <div class="list-head">
+          <h2 id="listTitle">All</h2>
+          <input id="search" type="search" placeholder="Search id, centre, city, product, fault   ( / )" aria-label="Search claims">
+        </div>
+        <div class="tablewrap">
+          <table id="table">
+            <thead><tr><th>Claim</th><th>Service centre</th><th>Product</th><th class="num">Amount</th><th>AI</th><th>Queue</th></tr></thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+        <p class="hint">Keys: <kbd>j</kbd>/<kbd>k</kbd> move between claims, <kbd>/</kbd> search</p>
+      </section>
+      <section id="detail" class="glass detail" aria-live="polite"></section>
+    </section>
+
+    <section id="view-dash" hidden></section>
+
+    <section id="view-audit" hidden>
+      <div class="glass pad">
+        <div class="list-head"><h2>Audit log</h2><a class="btn" href="/api/audit.csv" download>Export audit CSV</a></div>
+        <div class="tablewrap"><table id="auditTable">
+          <thead><tr><th>Time</th><th>Claim</th><th>Action</th><th>AI said</th><th class="num">Amount</th><th>Reason</th><th>By</th></tr></thead>
+          <tbody id="auditRows"></tbody>
+        </table></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div id="toasts" class="toasts" role="status" aria-live="polite"></div>
+<div id="modal" class="modal" hidden><div class="modal-card glass" role="dialog" aria-modal="true"></div></div>
+<script src="/app.js"></script>
+</body>
+</html>
+
+<script>
+(()=>{const gate=document.getElementById("loginScreen");if(!gate)return;const form=document.getElementById("loginForm"),email=document.getElementById("loginEmail"),password=document.getElementById("loginPassword"),message=document.getElementById("loginMessage"),toggle=document.getElementById("togglePassword"),demo=document.getElementById("demoAccess");const show=(text,error=false)=>{message.textContent=text;message.classList.toggle("error",error)};const enter=()=>{gate.remove();document.querySelectorAll(".app").forEach(el=>el.hidden=false);try{sessionStorage.setItem("nirmalDemoSignedIn","1")}catch{};document.querySelector(".app")?.scrollIntoView({behavior:"smooth"})};try{if(sessionStorage.getItem("nirmalDemoSignedIn")==="1"){enter();return}}catch{};toggle.addEventListener("click",()=>{const reveal=password.type==="password";password.type=reveal?"text":"password";toggle.textContent=reveal?"Hide":"Show";toggle.setAttribute("aria-label",reveal?"Hide password":"Show password")});document.getElementById("forgotPassword").addEventListener("click",e=>{e.preventDefault();show("Demo access does not use passwords. Use the demo access button below.")});document.getElementById("helpLink").addEventListener("click",e=>{e.preventDefault();show("For this demo, select Continue as Anita Rao to open the workspace.")});form.addEventListener("submit",e=>{e.preventDefault();if(!email.validity.valid){email.focus();show("Enter a valid work email address.",true);return}if(password.value.length<4){password.focus();show("Enter at least 4 characters, or use demo access.",true);return}show("This is a demo workspace. Use Continue as Anita Rao; no password is verified.",true)});demo.addEventListener("click",enter)})();
+</script>

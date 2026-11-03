@@ -1,0 +1,13 @@
+{
+  "name": "nirmal-claims",
+  "version": "1.0.0",
+  "description": "Nirmal Home Appliances warranty-claims app: Node API + SQLite + live dashboard",
+  "main": "server.js",
+  "scripts": {
+    "start": "node --no-warnings server.js",
+    "test": "node --no-warnings test.js"
+  },
+  "engines": { "node": ">=22.5" },
+  "license": "UNLICENSED",
+  "private": true
+}
